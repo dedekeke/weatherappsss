@@ -1,29 +1,26 @@
-// testing part
+import React from "react";
+import { StyleSheet, Text, View, Animated } from "react-native";
 
+import { API_KEY } from "./apistoring";
+import Weather from "./weather";
 
-import React from 'react';
-import { StyleSheet, Text, View, Animated } from 'react-native';
-
-import { API_KEY } from './apistoring';
-
-import Weather from './weather';
 
 export default class App extends React.Component {
   state = {
     isLoading: false,
     temperature: 0,
-    weatherCondition: null,
-    error: null
+    weatherCondition: "Clear",
+    error: null,
   };
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
-      position => {
+      (position) => {
         this.fetchWeather(position.coords.latitude, position.coords.longitude);
       },
-      error => {
+      (error) => {
         this.setState({
-          error: 'Error Gettig Weather Condtions'
+          error: "Error Gettig Weather Condtions",
         });
       }
     );
@@ -31,20 +28,30 @@ export default class App extends React.Component {
 
   fetchWeather(lat = 25, lon = 25) {
     fetch(
-      `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${API_KEY}&units=metric`
-    )
-          this.setState({
-            temperature: json.main.temp,
-            weatherCondition: json.weather[0].main,
-            isLoading: false
-      });
+      `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${API_KEY}&units=metric`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    ).then(res => res.json()).then((response) => {
+      console.log(JSON.stringify(response))
+        this.setState({
+          temperature: response.main.temp,
+          weatherCondition: response.weather[0].main,
+          isLoading: false
+      })
+    });
   }
 
   render() {
     const { isLoading } = this.state;
     return (
       <View style={styles.container}>
-        {isLoading ? <Text>Fetching The Weather</Text> : <Weather />}
+        {isLoading ? <Text>Fetching The Weather</Text> : <Weather weather={this.state.weatherCondition}
+         temperature={this.state.temperature}/>}
       </View>
     );
   }
@@ -53,6 +60,6 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: "#fff",
+  },
 });
