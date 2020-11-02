@@ -1,9 +1,9 @@
 {
-  "name": "weatherappsss",
-  "displayName": "weatherappsss",
+  "name": "weather1",
+  "displayName": "weather1",
   "expo": {
-    "name": "weatherappsss",
-    "slug": "weatherappsss",
+    "name": "weather1",
+    "slug": "weather1",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

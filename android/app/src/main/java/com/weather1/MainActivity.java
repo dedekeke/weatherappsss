@@ -1,4 +1,4 @@
-package com.weatherappsss;
+package com.weather1;
 
 import android.os.Bundle;
 

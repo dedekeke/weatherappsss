@@ -1,4 +1,4 @@
-rootProject.name = 'weatherappsss'
+rootProject.name = 'weather1'
 
 apply from: '../node_modules/react-native-unimodules/gradle.groovy'
 includeUnimodulesProjects()

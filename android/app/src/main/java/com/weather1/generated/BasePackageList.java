@@ -1,4 +1,4 @@
-package com.weatherappsss.generated;
+package com.weather1.generated;
 
 import java.util.Arrays;
 import java.util.List;
